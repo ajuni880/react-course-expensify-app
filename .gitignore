@@ -1,5 +1,8 @@
 node_modules/
 src/tests/
 .vscode/
-
 yarn-error.log
+public/bundle.js
+public/bundle.js.map
+public/styles.css
+public/styles.css.map
