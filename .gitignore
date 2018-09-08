@@ -3,3 +3,5 @@ public/dist/
 src/tests/
 .vscode/
 yarn-error.log
+.env.test
+.env.development
