@@ -19,7 +19,7 @@ export const startAddExpense = (expenseData = {}) => {
       createdAt = 0
     } = expenseData;
     
-    const expense = {description, note, amount, createdAt };
+    const expense = { description, note, amount, createdAt };
 
     database.ref('expenses').push(expense).then((ref) => {
       console.log('ref', ref);
@@ -36,6 +36,15 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
+export const startRemoveExpense = (expense) => {
+  const { id } = expense;
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense({ id }))
+    })
+  }
+};
+
 // EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
   type: 'EDIT_EXPENSE',
@@ -43,6 +52,14 @@ export const editExpense = (id, updates) => ({
   updates
 });
 
+export const startEditExpenses = (id, expense) => {
+  console.log(expense)
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).update(expense).then(() => {
+      dispatch(editExpense({ id, expense }))
+    });
+  };
+};
 // SET_EXPENSES
 export const setExpenses = (expenses) => ({
   type: 'SET_EXPENSES',
@@ -64,4 +81,4 @@ export const startSetExpenses = () => {
       dispatch(setExpenses(expenses));
     });
   }
-}
+};
